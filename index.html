@@ -108,6 +108,8 @@
             font-size: 14px;
             resize: none;
             line-height: 1.5;
+            direction: ltr;
+            text-align: left;
         }
 
         .btn {
@@ -126,7 +128,6 @@
         }
 
         .btn-success { background: var(--success); color: #065f46; }
-        .btn-danger { background: var(--danger); }
 
         .flowchart-container {
             display: flex;
@@ -153,15 +154,9 @@
             max-width: 300px;
         }
 
-        .fc-node:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
         .fc-node.terminal { border-radius: 30px; background: #e0f2fe; }
         .fc-node.io { transform: skew(-10deg); background: #fef3c7; }
-        .fc-node.decision { transform: rotate(0deg); border-radius: 12px; background: #fee2e2; border-color: #ef4444; }
+        .fc-node.decision { border-radius: 12px; background: #fee2e2; border-color: #ef4444; }
 
         .arrow {
             font-size: 20px;
@@ -176,6 +171,8 @@
             font-family: monospace;
             flex: 1;
             overflow-y: auto;
+            direction: ltr;
+            text-align: left;
         }
 
         select {
@@ -209,16 +206,15 @@
                 <button class="btn btn-success" onclick="runCode()">تشغيل وتنفيذ ⚡</button>
             </div>
             <div class="panel-body">
-                <textarea id="codeEditor">#iostream مشمول تلقائياً
-#include <iostream>
+                <textarea id="codeEditor">#include <iostream>
 using namespace std;
 
 int main() {
     int mark = 85;
     if (mark >= 50) {
-        cout << "ناجح بتقدير ممتاز!" << endl;
+        cout << "Pass with excellence!" << endl;
     } else {
-        cout << "راسب" << endl;
+        cout << "Fail" << endl;
     }
     return 0;
 }</textarea>
@@ -232,7 +228,6 @@ int main() {
                 <button class="btn" onclick="showFlowchart()">تحديث الفلوشارت</button>
             </div>
             <div class="panel-body" id="tabContent">
-                <!-- محتوى الفلوشارت الافتراضي -->
                 <div class="flowchart-container" id="flowchartView">
                     <div class="fc-node terminal">بداية البرنامج (Start)</div>
                     <div class="arrow">⬇</div>
@@ -254,13 +249,13 @@ int main() {
             const val = document.getElementById('lessonSelect').value;
             const editor = document.getElementById('codeEditor');
             if (val === '1') {
-                editor.value = `#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "مرحباً بكم في سنة أولى حاسبات!" << endl;\n    return 0;\n}`;
+                editor.value = `#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Welcome to Computer Science!" << endl;\n    return 0;\n}`;
             } else if (val === '2') {
-                editor.value = `#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10, b = 20;\n    int sum = a + b;\n    cout << "المجموع = " << sum << endl;\n    return 0;\n}`;
+                editor.value = `#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10, b = 20;\n    int sum = a + b;\n    cout << "Sum = " << sum << endl;\n    return 0;\n}`;
             } else if (val === '3') {
-                editor.value = `#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 15;\n    if (x > 10) {\n        cout << "الرقم أكبر من 10" << endl;\n    }\n    return 0;\n}`;
+                editor.value = `#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 15;\n    if (x > 10) {\n        cout << "X is greater than 10" << endl;\n    }\n    return 0;\n}`;
             } else if (val === '4') {
-                editor.value = `#include <iostream>\nusing namespace std;\n\nint main() {\n    for(int i=1; i<=3; i++) {\n        cout << "التكرار رقم: " << i << endl;\n    }\n    return 0;\n}`;
+                editor.value = `#include <iostream>\nusing namespace std;\n\nint main() {\n    for(int i=1; i<=3; i++) {\n        cout << "Iteration: " << i << endl;\n    }\n    return 0;\n}`;
             }
         }
 
@@ -269,20 +264,20 @@ int main() {
             consoleBox.innerHTML = "جاري الترجمة والتنفيذ...\n";
             setTimeout(() => {
                 const code = document.getElementById('codeEditor').value;
-                if (code.includes("ناجح")) {
-                    consoleBox.innerHTML += "ناجح بتقدير ممتاز!\n[تم التنفيذ بنجاح - 0 أخطاء]";
-                } else if (code.includes("المجموع")) {
-                    consoleBox.innerHTML += "المجموع = 30\n[تم التنفيذ بنجاح - 0 أخطاء]";
-                } else if (code.includes("التكرار")) {
-                    consoleBox.innerHTML += "التكرار رقم: 1\nالتكرار رقم: 2\nالتكرار رقم: 3\n[تم التنفيذ بنجاح]";
+                if (code.includes("Pass")) {
+                    consoleBox.innerHTML += "Pass with excellence!\n[تم التنفيذ بنجاح - 0 أخطاء]";
+                } else if (code.includes("Sum")) {
+                    consoleBox.innerHTML += "Sum = 30\n[تم التنفيذ بنجاح - 0 أخطاء]";
+                } else if (code.includes("Iteration")) {
+                    consoleBox.innerHTML += "Iteration: 1\nIteration: 2\nIteration: 3\n[تم التنفيذ بنجاح]";
                 } else {
-                    consoleBox.innerHTML += "مرحباً بكم في سنة أولى حاسبات!\n[تم التنفيذ بنجاح - 0 أخطاء]";
+                    consoleBox.innerHTML += "Welcome to Computer Science!\n[تم التنفيذ بنجاح - 0 أخطاء]";
                 }
             }, 500);
         }
 
         function showFlowchart() {
-            alert("تم تحديث الفلوشارت بناءً على الكود الحالي بنجاح!");
+            alert("تم تحديث الفلوشارت بنجاح!");
         }
     </script>
 </body>
